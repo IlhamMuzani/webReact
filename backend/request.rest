@@ -1,0 +1,110 @@
+// Created User 
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "ilham",
+    "email": "ilhams@gmail.com",
+    "password": "123456",
+    "confPassword": "123456",
+    "role": "admin"
+}
+
+###
+// getAll User
+GET http://localhost:5000/users
+
+
+###
+// get user search
+GET http://localhost:5000/users?search_query=john&page=0&limit=10
+
+
+###
+//get Single User
+GET http://localhost:5000/users/066edd84-6732-406d-996b-775fb682ebaa
+
+###
+//Update user
+PATCH  http://localhost:5000/users/066edd84-6732-406d-996b-775fb682ebaa
+Content-Type: application/json
+
+{
+    "name": "John Doe Update",
+    "email": "john@gmail.com",
+    "password": "",
+    "confPassword": "",
+    "role": "user"
+}
+
+###
+//Deleted user
+DELETE http://localhost:5000/users/e5a2d821-ce9c-4af1-95f1-7ebe338def48
+
+###
+// Login admin 
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "ilhams@gmail.com",
+    "password": "123456"
+}
+
+###
+// Login User 
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "john@gmail.com",
+    "password": "123456"
+}
+### 
+// get ME
+GET http://localhost:5000/me
+
+###
+// logOut
+DELETE  http://localhost:5000/logout
+
+###
+// getAll Product
+GET http://localhost:5000/products
+
+###
+// get Sigle Product
+GET http://localhost:5000/products/06d02dbd-ca83-4bd6-af1b-d90e35f7ae86
+
+
+###
+// get product search
+GET http://localhost:5000/products?search_query=sabun&page=0&limit=10
+
+
+###
+// Created Product 
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+    "name": "product 5",
+    "price": "997"
+}
+
+###
+// Update Product 
+PATCH http://localhost:5000/products/8b6ca71d-a84f-466f-9f6b-c07fb7fc5762
+Content-Type: application/json
+
+{
+    "name": "product Updateds 2",
+    "price": "1001"
+}
+
+
+###
+// Deleted Product 
+DELETE http://localhost:5000/products/be58fa8f-7f1f-46cb-9bce-40a112ad740b
+
+
