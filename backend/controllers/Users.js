@@ -14,7 +14,7 @@ export const getUsers = async (req, res) => {
             where: {
                 [Op.or]: [
                     { name: { [Op.like]: '%' + search + '%' } },
-                    { email: { [Op.like]: '%' + search + '%' } }
+                    { kode_user: { [Op.like]: '%' + search + '%' } }
                 ]
             }
         });
@@ -24,11 +24,11 @@ export const getUsers = async (req, res) => {
 
         // Ambil data pengguna dengan kueri pencarian, limit, offset, dan urutan
         const result = await User.findAll({
-            attributes: ['uuid', 'name', 'email', 'role'],
+            attributes: ['uuid', 'name', 'kode_user', 'role'],
             where: {
                 [Op.or]: [
                     { name: { [Op.like]: '%' + search + '%' } },
-                    { email: { [Op.like]: '%' + search + '%' } }
+                    { kode_user: { [Op.like]: '%' + search + '%' } }
                 ]
             },
             offset: offset,
@@ -53,7 +53,7 @@ export const getUsers = async (req, res) => {
 export const getUserstById = async(req, res) =>{
     try {
         const response = await User.findOne({
-            attributes:['uuid','name','email','role'],
+            attributes:['uuid','name','kode_user','role'],
             where: {
                 uuid: req.params.id
             }
@@ -64,22 +64,44 @@ export const getUserstById = async(req, res) =>{
     }
 }
 
-export const createUser = async(req, res) =>{
-    const {name, email, password, confPassword, role} = req.body;
-    if(password !== confPassword) return res.status(400).json({msg: "Password dan Password Konfirmasi tidak cocok"});
-    const hashPassword = await argon2.hash(password);
+export const createUser = async (req, res) => {
+    const { karyawanId, name, password, confPassword, role } = req.body;
+    
+    // Validasi kesesuaian password
+    if (password !== confPassword) {
+        return res.status(400).json({ msg: "Password dan Password Konfirmasi tidak cocok" });
+    }
+
     try {
+        // Fetch the last created user
+        const lastUser = await User.findOne({ order: [['createdAt', 'DESC']] });
+
+        // Generate new kode_user
+        let newCode;
+        if (!lastUser || !lastUser.kode_user) {
+            newCode = 'AB000001';
+        } else {
+            const lastCode = lastUser.kode_user;
+            const num = parseInt(lastCode.substring(2)) + 1;
+            newCode = 'AB' + num.toString().padStart(6, '0');
+        }
+
+        // Create new user with generated kode_user and null password
         await User.create({
+            karyawanId: karyawanId,
+            kode_user: newCode,
             name: name,
-            email: email,
-            password: hashPassword,
+            password: null, // Kosongkan password
             role: role
         });
-        res.status(201).json({msg: "Register Berhasil"});
+
+        res.status(201).json({ msg: "Register Berhasil" });
     } catch (error) {
-        res.status(400).json({msg: error.message});
+        res.status(400).json({ msg: error.message });
     }
-}
+};
+
+
 
 export const updateUser = async (req, res) =>{
     const user = await User.findOne({
@@ -113,6 +135,7 @@ export const updateUser = async (req, res) =>{
         res.status(400).json({msg: error.message});
     }
 }
+
 
 export const deleteUser = async(req, res) =>{
     const user = await User.findOne({

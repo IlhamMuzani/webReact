@@ -3,7 +3,7 @@ import db from "../config/Database.js";
 
 const {DataTypes} = Sequelize;
 
-const Users = db.define('users',{
+const Karyawans = db.define('karyawan',{
     uuid:{
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
@@ -12,14 +12,7 @@ const Users = db.define('users',{
             notEmpty: true
         }
     },
-    karyawanId: {
-        type: DataTypes.STRING, // Change data type to STRING
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }
-    },
-    kode_user:{
+    kode_karyawan:{
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
@@ -35,33 +28,35 @@ const Users = db.define('users',{
             len: [3, 100]
         }
     },
-    email:{
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate:{
-            notEmpty: true,
-            isEmail: true
-        }
-    },
-    password:{
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate:{
-            notEmpty: true
-        }
-    },
-    role:{
+    telp:{
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
-            notEmpty: true
+            notEmpty: true,
+            len: [3, 100]
         }
-    }
+    },
+    gender:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true,
+            len: [3, 100]
+        }
+    },
+    alamat:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true,
+            len: [3, 100]
+        }
+    },
 },{
     freezeTableName: true
 });
 
-export default Users;
+export default Karyawans;
 
 // (async() => {
 //     await db.sync();

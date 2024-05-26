@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "name": "ilham",
-    "email": "ilhams@gmail.com",
+    "email": "ilhammuzani115@gmail.com",
     "password": "123456",
     "confPassword": "123456",
     "role": "admin"
@@ -47,7 +47,7 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "ilhams@gmail.com",
+    "email": "ilhammuzani5@gmail.com",
     "password": "123456"
 }
 
@@ -108,3 +108,32 @@ Content-Type: application/json
 DELETE http://localhost:5000/products/be58fa8f-7f1f-46cb-9bce-40a112ad740b
 
 
+###
+// Created Karyawan 
+POST http://localhost:5000/karyawans
+Content-Type: application/json
+
+{
+    "kode_karyawan": "John Doe Update",
+    "name": "John Doe Update",
+    "telp": "John Doe Update",
+    "gender": "John Doe Update",
+    "alamat": "John Doe Update"
+    }
+
+###
+// getAll Karyawan
+GET http://localhost:5000/karyawans
+
+###
+// Created Pelanggan 
+POST http://localhost:5000/pelanggans
+Content-Type: application/json
+
+{
+    "kode_karyawan": "John Doe Update",
+    "name": "John Doe Update",
+    "telp": "John Doe Update",
+    "gender": "John Doe Update",
+    "alamat": "John Doe Update"
+    }

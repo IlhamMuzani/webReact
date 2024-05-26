@@ -4,7 +4,8 @@ import {
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    updateProductJumlah
 } from "../controllers/Products.js";
 import { verifyUser } from "../middleware/AuthUser.js";
 
@@ -12,13 +13,10 @@ import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.get('/products', verifyUser, getProducts);
-// router.get('/products', getProducts);
 router.get('/products/:id', verifyUser, getProductById);
 router.post('/products', verifyUser, createProduct);
-// router.post('/products', createProduct);
-// router.patch('/products/:id', updateProduct);
 router.patch('/products/:id', verifyUser, updateProduct);
 router.delete('/products/:id', verifyUser, deleteProduct);
-// router.delete('/products/:id', deleteProduct);
+router.put('/products/:id/jumlah', verifyUser, updateProductJumlah);
 
 export default router;
